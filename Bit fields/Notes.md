@@ -18,3 +18,15 @@ Where `:` is an operator which specifies that variable's size in bit. So, `first
 This `struct` occupies exactly 2 bytes.
 
 Using this data structure in C is powerful working with bit fields, expecially reading or writing on files data with a knwon format.
+
+It is also possible to use existing data types to compose this kind of `struct`:
+
+```c
+struct foo {
+    uint8_t first;
+    uint8_t second;
+    uint16_t third;
+}
+```
+
+This is 4 bytes large.
