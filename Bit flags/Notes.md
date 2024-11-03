@@ -26,3 +26,5 @@ int f(int x, t_flag flag)
 ```
 
 With bitwise operators we can extract informations from `flag`. 
+
+> [**Return to the index**](../Advanced%20C.md)

@@ -18,3 +18,5 @@ This code compiles and print the address of the variable `a`. There are no error
 ### Note about "sample-2.c"
 
 When casting to `uint8_t*` we are casting the pointer, but not its content. So, we are simply telling C that each element of the `xs` array points to something that is 1 byte long, but C keeps unchanged the allocated memory for array's elements and, consequentially, their content; then, there is no information leakage. This feature is very powerful because allows us to work with any data without taking care of type, but knowing its size.
+
+> [**Return to the index**](../Advanced%20C.md)

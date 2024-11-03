@@ -34,3 +34,5 @@ Rename a function pointer:
 ```c
 typedef int (*custom_name)(int, int);
 ```
+
+> [**Return to the index**](../Advanced%20C.md)

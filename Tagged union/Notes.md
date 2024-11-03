@@ -30,3 +30,5 @@ We can check with a `sizeof` that, for example, the `union` uses 8 bytes, but if
 Since dynamic typing looks cumbersome in C, there are may other ways to exploit this data structure.
 
 An example, it is useful if we want to store information which can change cathegory keeping memory about its type. 
+
+> [**Return to the index**](../Advanced%20C.md)
