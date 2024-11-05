@@ -15,3 +15,5 @@
 ## Makefile <!-- omit from toc -->
 
 ## CMake <!-- omit from toc -->
+
+- [Notes](./CMake/Notes.md)
