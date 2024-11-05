@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(root)
+project(my_root)
 
 find_package(Eigen3 REQUIRED)      # Looks for the package Eigen3 inside the filesystem
 
