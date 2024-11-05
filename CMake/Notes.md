@@ -40,6 +40,10 @@ cmake [<options>] -B <path-to-build> [-S <path-to-source>]
 
 Basically, `<path-to-build>` is the `build` folder and `<path-to-source>` is the `src` folder.
 
+> [!WARNING] Rebuild
+>
+> Before rebuild, delete the build folder since `CMakeCache.txt` could produce conflicts.
+
 ### Create the executable
 
 Move to the `build` folder, then use regularly the utility make:
