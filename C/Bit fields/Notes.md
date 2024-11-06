@@ -32,4 +32,4 @@ struct foo {
 This is 4 bytes large.
 
 
-> [**Return to the index**](../Advanced%20C.md)
+> [**Return to the index**](../../Index.md)

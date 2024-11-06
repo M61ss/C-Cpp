@@ -31,4 +31,4 @@ Since dynamic typing looks cumbersome in C, there are may other ways to exploit 
 
 An example, it is useful if we want to store information which can change cathegory keeping memory about its type. 
 
-> [**Return to the index**](../Advanced%20C.md)
+> [**Return to the index**](../../Index.md)

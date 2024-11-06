@@ -24,4 +24,4 @@ In C the `static` keyword is used in 2 cases:
   
   This function is visible only by functions in the same file ([translation unit](https://en.wikipedia.org/wiki/Translation_unit_%28programming%29)).
 
-> [**Return to the index**](../Advanced%20C.md)
+> [**Return to the index**](../../Index.md)

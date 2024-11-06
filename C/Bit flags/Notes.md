@@ -25,6 +25,6 @@ This way we defined a new type `t_flag` useful to represent the data type which 
 int f(int x, t_flag flag)
 ```
 
-With bitwise operators we can extract informations from `flag`. 
+With bitwise operators we can extract information from `flag`. 
 
-> [**Return to the index**](../Advanced%20C.md)
+> [**Return to the index**](../../Index.md)
