@@ -8,7 +8,7 @@ root
 └───include
 ```
 
-- `src`: Should contain files which use libraries. For example, `mian.c` should be placed here.
+- `src`: Should contain files which use libraries. For example, `main.c` should be placed here.
 - `include`: Libraries should be placed inside this folder.
 
 ## CMake
