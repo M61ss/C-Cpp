@@ -57,3 +57,9 @@ To clean from make output:
 ```shell
 make clean
 ```
+
+Alternately you could use:
+
+```shell
+cmake --build <build-folder>
+```
