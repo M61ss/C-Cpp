@@ -46,7 +46,13 @@ Basically, `<path-to-build>` is the `build` folder and `<path-to-source>` is the
 
 ### Create the executable
 
-Move to the `build` folder, then use regularly the utility make:
+To build the software run:
+
+```shell
+cmake --build <build-folder>
+```
+
+Alternately, move to the `build` folder, then use regularly the utility make:
 
 ```shell
 make
@@ -56,10 +62,4 @@ To clean from make output:
 
 ```shell
 make clean
-```
-
-Alternately you could use:
-
-```shell
-cmake --build <build-folder>
 ```
