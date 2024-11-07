@@ -1,5 +1,7 @@
 # C++
 
+## Gold mine
+
 A lot of useful information about C++ can be found [**here**](https://caiorss.github.io/C-Cpp-Notes/) (**very recommended**).
 
 ## Classes
