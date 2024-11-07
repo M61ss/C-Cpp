@@ -1,5 +1,7 @@
 # C++
 
+A lot of useful information about C++ can be found [**here**](https://caiorss.github.io/C-Cpp-Notes/).
+
 ## Classes
 
 Le struct sono strutture dati inefficienti perché non c'è modo di organizzare bene i dati e associarli a dei propri metodi. 
