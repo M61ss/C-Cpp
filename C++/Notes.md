@@ -1,37 +1,71 @@
-# C++
-
-## Gold mine
+# Gold mine
 
 A lot of useful information about C++ can be found [**here**](https://caiorss.github.io/C-Cpp-Notes/) (**very recommended**).
 
-## Classes
+# C++
 
-Le struct sono strutture dati inefficienti perché non c'è modo di organizzare bene i dati e associarli a dei propri metodi. 
-\
-Inoltre, non c'è modo di controllarne l'accesso (private o public). 
+Assumed basic knowledge of C.
 
-> [!IMPORTANT]
-> 
-> Entrati nel corpo del costruttore, in C++ si assume che tutti gli elementi all'interno della classe siano già stati inizializzati.
-> \
-> Vedi [classi.cpp](./test/src/classi.cpp)
+## `main`
 
-> [!WARNING]
->
-> Where access specifier is absent, the compiler assumes that content is private.
+Three possible definition of `main`:
 
-### `new`
+- ```c
+  int main();
+  ```
 
-It returns a pointer to the element specified after the keyword.
+- ```c
+  int main(int argc, char **argv);
+  ```
 
-> [!WARNING]
-> 
-> Do not confuse with Java! To create an object it is enough to call its constructor without the keyword `new`. 
+- ```c
+  int main(int argc, char **argv, char **environ);
+  ```
 
-## Namespaces
+  Where `**environ` is a vector containing environment variables.
 
-I namespace sono un modo per organizzare meglio il codice in spazi di nomi. Esso assegna un prefisso a gruppi di funzioni per fare in modo che esse siano facilmente organizzabili e reperibili. 
-\
-Per esempio, è possibile organizzare funzioni di manipolazione di immagini 2d nel namespace `2d`, mentre metto le funzioni 3d nel namespace `3d`.
+## Variables
 
-Infine, grazie ai namespace è possibile evitare problemi di conflitti tra funzioni aventi lo stesso nome se esse appartengono a namespace diversi.
+C++ supports multiple variables initialization with assignment at same line.
+
+_Example_:
+
+```c
+double xx = 3.1515, yy = 3 * xx + 3.0, zz = xx * 2 + yy;
+```
+
+```c
+double x, y, z;
+x = y = z = 3.0;
+```
+
+## Literals
+
+- **Integer**: `123456` (or `123'456` since C++14);
+- **Unsigned integer**: `123456U` (or `123'456U` since C++14);
+- **Exadecimal integer**: `0xFFCA07` (or `0xFF'CA'07` since C++14);
+- **Binary integer** (since C++14): `0b00101101` or `0b0010'1101`;
+- **Float**: `1555100.9151f` (or `15'55'100.91'25'41f` or `1555'100.912541f` since C++14); 
+- **Double** (since C++14): `15'55'100.91'25'41` or `1555'100.912541`;
+- **Character**: `C`;
+- **Non-printable character**: `\x0F` (exadecimal value!).
+
+## String
+
+- **Multiline strings**: 
+  
+  ```c
+  const char* str1 =
+        " => C++98 programming language ; \n"
+        " => Rust programming language ; \n"
+        " => Forth programming language ; \n"
+        " => ADA programming language ; \n"
+        ;
+  ```
+
+- **Raw string literal**: It supports multiline and characters that are used for escaping sequence such as backward slash (\\) that, in regular strings, needs to be escaped and written as (\\\\):
+  
+  <!-- ATTENTION: escapes in the following string are needed by Markdown, NOT by C++ -->
+  ```c
+  const char* windows_path = R"(C:\\Uses\\Dummy\\Path)";
+  ```
