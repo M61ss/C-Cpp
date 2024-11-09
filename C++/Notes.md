@@ -41,14 +41,20 @@ x = y = z = 3.0;
 
 ## Literals
 
+> [!IMPORTANT] Data types
+>
+> Data types are the same of C. 
+> \
+> In addition, all data types defined inside `<stdint.h>` in C++ are built-in.
+
 - **Integer**: `123456` (or `123'456` since C++14);
 - **Unsigned integer**: `123456U` (or `123'456U` since C++14);
 - **Exadecimal integer**: `0xFFCA07` (or `0xFF'CA'07` since C++14);
 - **Binary integer** (since C++14): `0b00101101` or `0b0010'1101`;
 - **Float**: `1555100.9151f` (or `15'55'100.91'25'41f` or `1555'100.912541f` since C++14); 
 - **Double** (since C++14): `15'55'100.91'25'41` or `1555'100.912541`;
-- **Character**: `C`;
-- **Non-printable character**: `\x0F` (exadecimal value!).
+- **Character**: `'C'`;
+- **Non-printable character**: `'\x0F'` (exadecimal value!).
 
 ## String
 
@@ -65,7 +71,6 @@ x = y = z = 3.0;
 
 - **Raw string literal**: It supports multiline and characters that are used for escaping sequence such as backward slash (\\) that, in regular strings, needs to be escaped and written as (\\\\):
   
-  <!-- ATTENTION: escapes in the following string are needed by Markdown, NOT by C++ -->
   ```c
-  const char* windows_path = R"(C:\\Uses\\Dummy\\Path)";
+  const char* windows_path = R"(C:\Uses\Dummy\Path)";
   ```
