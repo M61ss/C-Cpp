@@ -10,15 +10,15 @@ Assumed basic knowledge of C.
 
 Three possible definition of `main`:
 
-- ```c
+- ```c++
   int main();
   ```
 
-- ```c
+- ```c++
   int main(int argc, char **argv);
   ```
 
-- ```c
+- ```c++
   int main(int argc, char **argv, char **environ);
   ```
 
@@ -30,11 +30,11 @@ C++ supports multiple variables initialization with assignment at same line.
 
 _Example_:
 
-```c
+```c++
 double xx = 3.1515, yy = 3 * xx + 3.0, zz = xx * 2 + yy;
 ```
 
-```c
+```c++
 double x, y, z;
 x = y = z = 3.0;
 ```
@@ -60,7 +60,7 @@ x = y = z = 3.0;
 
 - **Multiline strings**: 
   
-  ```c
+  ```c++
   const char* str1 =
         " => C++98 programming language ; \n"
         " => Rust programming language ; \n"
@@ -71,6 +71,17 @@ x = y = z = 3.0;
 
 - **Raw string literal**: It supports multiline and characters that are used for escaping sequence such as backward slash (\\) that, in regular strings, needs to be escaped and written as (\\\\):
   
-  ```c
+  ```c++
   const char* windows_path = R"(C:\Uses\Dummy\Path)";
   ```
+
+## `if-else` statements
+
+`if-else` statements are exactly the same of C. 
+
+Remember ternary operator:
+
+```c
+int value = true ? 1 : 0;    // value = 1
+value = false ? 1 : 0;       // value = 0
+```
