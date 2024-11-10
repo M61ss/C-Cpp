@@ -4,10 +4,12 @@
 - [Gold mine](#gold-mine)
 - [C++](#c)
   - [`main`](#main)
+    - [`auto`](#auto)
   - [Literals](#literals)
   - [String](#string)
   - [`if-else`](#if-else)
   - [I/O](#io)
+  - [Functions](#functions)
 
 # Gold mine
 
@@ -15,7 +17,7 @@ A lot of useful information about C++ can be found [**here**](https://caiorss.gi
 
 # C++
 
-Assumed basical knowledge of C.
+Assumed basical knowledge of C. 
 
 ## `main`
 
@@ -49,6 +51,10 @@ double xx = 3.1515, yy = 3 * xx + 3.0, zz = xx * 2 + yy;
 double x, y, z;
 x = y = z = 3.0;
 ```
+
+### `auto`
+
+The `auto` keyword automatically deduces the type of the variable from its initialization expression.
 
 ## Literals
 
@@ -162,3 +168,7 @@ Useful to easily read structured data.
 > [!TIP] getline
 > 
 > To read an entire line (until `\n`) use `std::getline`.
+
+## Functions
+
+
