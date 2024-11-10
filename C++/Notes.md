@@ -54,7 +54,23 @@ x = y = z = 3.0;
 
 ### `auto`
 
-The `auto` keyword automatically deduces the type of the variable from its initialization expression.
+The `auto` keyword automatically deduces the type of the variable from its initialization expression. This means that its type cannot be changed by reassignment.
+\
+No automatic cast is performed on variables declared with `auto`. 
+
+*Example*:
+
+```c++
+#include <cmath>
+
+int main()
+{
+  auto x = 34.0f - sqrt('a' / 3.0);
+  int b = x % 2;  // ERROR: the % operand works only with int, but x is double!
+
+  return 0;
+}
+```
 
 ## Literals
 
