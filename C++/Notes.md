@@ -1,10 +1,21 @@
+# Index
+
+- [Index](#index)
+- [Gold mine](#gold-mine)
+- [C++](#c)
+  - [`main`](#main)
+  - [Literals](#literals)
+  - [String](#string)
+  - [`if-else`](#if-else)
+  - [I/O](#io)
+
 # Gold mine
 
 A lot of useful information about C++ can be found [**here**](https://caiorss.github.io/C-Cpp-Notes/) (**very recommended**).
 
 # C++
 
-Assumed basic knowledge of C.
+Assumed basical knowledge of C.
 
 ## `main`
 
@@ -45,7 +56,13 @@ x = y = z = 3.0;
 >
 > Data types are the same of C. 
 > \
-> In addition, all data types defined inside `<stdint.h>` in C++ are built-in.
+> In addition, the `bool` data type and all data types defined inside `<stdint.h>` in C++ are built-in.
+
+> [!IMPORTANT] nullptr
+>
+> In C++ `nullptr` represents a null pointer. It can be assigned or used for comparisons.
+> \
+> However, it does not replace the usage of `NULL`. Some functions or data types of external libraries, maybe imported from C, requires usage of the macro `NULL` and could not work properly with `nullptr` since their implementations are different.
 
 - **Integer**: `123456` (or `123'456` since C++14);
 - **Unsigned integer**: `123456U` (or `123'456U` since C++14);
@@ -75,7 +92,7 @@ x = y = z = 3.0;
   const char* windows_path = R"(C:\Uses\Dummy\Path)";
   ```
 
-## `if-else` statements
+## `if-else`
 
 `if-else` statements are exactly the same of C. 
 
@@ -85,3 +102,63 @@ Remember ternary operator:
 int value = true ? 1 : 0;    // value = 1
 value = false ? 1 : 0;       // value = 0
 ```
+
+Since C++17, in addiction to the possibility of assign a value to a variable, is also possible to declare and assign a variable inside an `if` condition.
+
+*Example*:
+
+```c++
+if (FILE* fp = fopen("/tmp/file4.dat", "w"); fp != nullptr) {
+    fprintf(fp, "File content 2");
+    fclose(fp);
+}
+```
+
+## I/O
+
+There are 4 I/O functions:
+
+- `std::cout`: prints output on `stdout`.
+- `std::cin`: reads input from `stdin`.
+- `std::clog`: prints output on `stderr`.
+- `std::cerr`: prints output on `stdoerr`.
+
+These functions work with two operators:
+
+- Insertion operator `<<`: it takes elements at its right and inserts them into the output function at its left.
+- Extraction operator `>>`: it takes the ouput of the input function at its left and puts it inside the container at its right.
+
+*Example*:
+
+```c++
+#include <iostream> 
+#include <string> 
+
+double x;
+std::cin >> x;
+ 
+std::cout << "Enter x: "; std::cin >> x; std::cout << " => x = " << x << "\n";
+
+std::string user;
+std::cout << "Name: "; std::cin >> user; std::cout << " => user is = " << user;
+```
+
+To read multiple data from console:
+
+```c++
+#include <iostream> 
+#include <string> 
+
+int         id, quantity;
+double      price;
+std::string name;
+
+// Read from console 4 data separated by whitespaces
+std::cin >> id >> name >> quantity >> price;
+```
+
+Useful to easily read structured data. 
+
+> [!TIP] getline
+> 
+> To read an entire line (until `\n`) use `std::getline`.
