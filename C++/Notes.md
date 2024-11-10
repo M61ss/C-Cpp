@@ -11,6 +11,7 @@
   - [I/O](#io)
   - [Functions](#functions)
     - [Default parameters](#default-parameters)
+    - [Function overloading](#function-overloading)
 
 # Gold mine
 
@@ -188,7 +189,7 @@ Useful to easily read structured data.
 
 ## Functions
 
-An alternative function implementation supported by C++ is:
+An alternative function implementation supported by C++ is (lambda):
 
 ```c++
 auto someFunction(void) -> void {
@@ -207,3 +208,40 @@ auto someFunction() {
 ```
 
 ### Default parameters
+
+In C++ it is possible to assign default parameters to functions arguments.
+
+*Example*:
+
+```c++
+double someFunction(double x, int n = 4, double z = 3.5)
+{
+    std::cout << "  x = "  << x
+              << " ; n = " << n
+              << " ; z = " << z
+              << "\n";
+    return x * n + 4.0 * z;
+}
+```
+
+### Function overloading
+
+C++ supports function overloading.
+
+*Example*:
+
+```c++
+#include <iostream> 
+
+void show(){
+    std::cout << "Call Version0." << "\n";
+}
+
+void show(int x){
+    std::cout << "Call Version1 with =>" << " x [int] = " << x << "\n";
+}
+
+void show(double x){
+    std::cout << "Call Version2 with =>" << " x [double] = " << x << "\n";
+}
+```
