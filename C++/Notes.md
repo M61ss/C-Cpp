@@ -10,6 +10,7 @@
   - [`if-else`](#if-else)
   - [I/O](#io)
   - [Functions](#functions)
+    - [Default parameters](#default-parameters)
 
 # Gold mine
 
@@ -187,4 +188,22 @@ Useful to easily read structured data.
 
 ## Functions
 
+An alternative function implementation supported by C++ is:
 
+```c++
+auto someFunction(void) -> void {
+    std::puts("I am a C++ free function");
+    return;       
+}
+```
+
+Since C++14 is available also this (type inference):
+
+```c++
+auto someFunction() {
+    std::puts("I am a C++ free function");
+    return;       
+}
+```
+
+### Default parameters
