@@ -2,9 +2,11 @@
 
 - [Index](#index)
 - [Gold mine](#gold-mine)
+- [C++ reference](#c-reference)
 - [C++](#c)
   - [`main`](#main)
     - [`auto`](#auto)
+    - [`static`](#static)
   - [Literals](#literals)
   - [String](#string)
   - [`if-else`](#if-else)
@@ -17,9 +19,13 @@
 
 A lot of useful information about C++ can be found [**here**](https://caiorss.github.io/C-Cpp-Notes/) (**very recommended**).
 
+# C++ reference
+
+https://cplusplus.com/reference/
+
 # C++
 
-Assumed basical knowledge of C. 
+Assumed basical knowledge of C and OOP. 
 
 ## `main`
 
@@ -74,6 +80,10 @@ int main()
 }
 ```
 
+### `static`
+
+`static` variables or functions are initialized after the first function invocation and keeps their state during successive function invocations. 
+
 ## Literals
 
 > [!IMPORTANT] Data types
@@ -95,7 +105,14 @@ int main()
 - **Float**: `1555100.9151f` (or `15'55'100.91'25'41f` or `1555'100.912541f` since C++14); 
 - **Double** (since C++14): `15'55'100.91'25'41` or `1555'100.912541`;
 - **Character**: `'C'`;
-- **Non-printable character**: `'\x0F'` (exadecimal value!).
+- **Non-printable character**: `'\x0F'` (exadecimal value!);
+- **String literal**: to treat string literals as `std::string` you can use this syntax:
+  
+  ```c++
+  // std::string concatenated = "string" + " contatenated";  ERROR: concatenation with `+` is supported only with `std::string`
+  std::string concatenated = std::string("string") + " contatenated";   // Verbose
+  std::string concatenated = "string"s + " contatenated";   // Fast, equivalent to the previous
+  ```
 
 ## String
 
@@ -115,6 +132,8 @@ int main()
   ```c++
   const char* windows_path = R"(C:\Uses\Dummy\Path)";
   ```
+
+- **`std::string`** defined in `<string>` ([C++ reference](http://www.cplusplus.com/reference/string/)). It is easier to manipulate strings with this since it is an object with useful methods.
 
 ## `if-else`
 
