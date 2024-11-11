@@ -15,10 +15,11 @@
     - [`std::to_string` (since C++11)](#stdto_string-since-c11)
     - [Comma separated value (CSV) parser](#comma-separated-value-csv-parser)
   - [`if-else`](#if-else)
-  - [Regular expression (RegEx)](#regular-expression-regex)
+  - [Regular expression (Regex)](#regular-expression-regex)
   - [Functions](#functions)
     - [Default parameters](#default-parameters)
     - [Function overloading](#function-overloading)
+  - [Collections](#collections)
   - [Stream](#stream)
     - [I/O streams](#io-streams)
 
@@ -234,11 +235,17 @@ if (FILE* fp = fopen("/tmp/file4.dat", "w"); fp != nullptr) {
 }
 ```
 
-## Regular expression (RegEx)
+## Regular expression (Regex)
 
+Regex syntax: [ECMAScript syntax - C++ Reference](https://cplusplus.com/reference/regex/ECMAScript/).
 
+Online regex testers:
 
-See also [Regular expression - C++ Reference](http://www.cplusplus.com/reference/regex/).
+- [Myregextester.com](https://myregextester.com/).
+- [RegExr: Learn, Build & Test RegEx](https://regexr.com/).
+- [regex101.com](https://regex101.com/)
+
+See also [\<regex\> - C++ Reference](http://www.cplusplus.com/reference/regex/).
 
 ## Functions
 
@@ -298,6 +305,16 @@ void show(double x){
     std::cout << "Call Version2 with =>" << " x [double] = " << x << "\n";
 }
 ```
+
+## Collections
+
+Data structures are all available in namespace `std` (ex. `std::vector<Type>`, `std::list<Type>`, etc.).
+
+> [!WARNING]
+>
+> `std::vector<Type>` isn't the best choice working in embedded and robotics because, since resources are limited, to use dynamic resizing reduces performance. It is better to set a fixed size, then resize it only if necessary.
+> \
+> However, it is possible to reserve memory for a vector using its method `reserve` to prevent to resize it everytime, improving performance.  
 
 ## Stream
 
