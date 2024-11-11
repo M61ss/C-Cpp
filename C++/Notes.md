@@ -12,14 +12,16 @@
     - [Multiline strings](#multiline-strings)
     - [Raw string literal](#raw-string-literal)
     - [`std::string`](#stdstring)
-    - [`std::to_string` (since C++11)](#stdto_string-since-c11)
+    - [`std::to_string`](#stdto_string)
     - [Comma separated value (CSV) parser](#comma-separated-value-csv-parser)
-  - [`if-else`](#if-else)
   - [Regular expression (Regex)](#regular-expression-regex)
+  - [`if-else`](#if-else)
+  - [For-range](#for-range)
   - [Functions](#functions)
     - [Default parameters](#default-parameters)
     - [Function overloading](#function-overloading)
   - [Collections](#collections)
+    - [Iterator](#iterator)
   - [Stream](#stream)
     - [I/O streams](#io-streams)
 
@@ -147,7 +149,7 @@ const char* windows_path = R"(C:\Uses\Dummy\Path)";
 
 `std::string` is defined in `<string>` ([C++ reference](http://www.cplusplus.com/reference/string/)). It make easier to manipulate strings since `std::string` is an object with useful methods;
 
-### `std::to_string` (since C++11) 
+### `std::to_string` 
 
 `std::to_string` is the method to convert a value to a string. It returns a `std::string`. 
 
@@ -166,20 +168,22 @@ It is important to see an example of implementation of a CSV since it is very us
 #include <sstream>
 
 std::vector<double> parseCSVRow(const std::string& line, char delim = ','){
-  auto out   = std::vector<double>{};
-  auto token = std::string{};
-  auto ss    = std::stringstream{line};
-  while(std::getline(ss, token, delim)){
-    out.push_back(std::stod(token));
-  }
-  return out;
+    auto out   = std::vector<double>{};
+    auto token = std::string{};
+    auto ss    = std::stringstream{line};
+
+    while(std::getline(ss, token, delim)){
+      out.push_back(std::stod(token));
+    }
+
+    return out;
 }
 
 int main(void) {
-  std::string raw_data = "100,   200,  400, -100.23, 60.23, 90.32";
-  parseCSVRow(raw_data);
+    std::string raw_data = "100,   200,  400, -100.23, 60.23, 90.32";
+    parseCSVRow(raw_data);
 
-  return 0;
+    return 0;
 }
 ```
 
@@ -193,25 +197,37 @@ Generic version (see [template]()):
 
 template<class Type = double>
 std::vector<Type> parseCSVRowGeneric(const std::string& line, char delim = ',') {
-  auto out   = std::vector<Type>{};
-  auto token = std::string{};
-  auto ss    = std::stringstream{line};
-  auto is    = std::stringstream{};
-  Type value{};
+    auto out   = std::vector<Type>{};
+    auto token = std::string{};
+    auto ss    = std::stringstream{line};
+    auto is    = std::stringstream{};
+    Type value{};
 
-  while(std::getline(ss, token, delim)){
-    // Clear error flags                                                                                                                              
-    is.clear();
-    // Set is stream value to token                                                                                                                   
-    is.str(token);
-    // Extract from 'is' stream                                                                                                                       
-    is >> value;
-    out.push_back(value);
-  }
+    while(std::getline(ss, token, delim)){
+      // Clear error flags                                                                                                                              
+      is.clear();
+      // Set is stream value to token                                                                                                                   
+      is.str(token);
+      // Extract from 'is' stream                                                                                                                       
+      is >> value;
+      out.push_back(value);
+    }
 
-  return out;
+    return out;
 }
 ```
+
+## Regular expression (Regex)
+
+Regex syntax: [ECMAScript syntax - C++ Reference](https://cplusplus.com/reference/regex/ECMAScript/).
+
+Online regex testers:
+
+- [Myregextester.com](https://myregextester.com/).
+- [RegExr: Learn, Build & Test RegEx](https://regexr.com/).
+- [regex101.com](https://regex101.com/)
+
+See also [\<regex\> - C++ Reference](http://www.cplusplus.com/reference/regex/).
 
 ## `if-else`
 
@@ -235,17 +251,31 @@ if (FILE* fp = fopen("/tmp/file4.dat", "w"); fp != nullptr) {
 }
 ```
 
-## Regular expression (Regex)
+## For-range
 
-Regex syntax: [ECMAScript syntax - C++ Reference](https://cplusplus.com/reference/regex/ECMAScript/).
+For-range with literals:
 
-Online regex testers:
+```c++
+for(const auto& x: {10, 20, 40, 50, 60}) {
+    std::cout << " x = " << x << "\n";
+}
+```
 
-- [Myregextester.com](https://myregextester.com/).
-- [RegExr: Learn, Build & Test RegEx](https://regexr.com/).
-- [regex101.com](https://regex101.com/)
+For-range over a collection:
 
-See also [\<regex\> - C++ Reference](http://www.cplusplus.com/reference/regex/).
+```c++
+std::vector<std::string> xs {"Hello", "world", "C++", "HPC", "awesome"};
+
+// Use const auto& to avoid uncessary copies. Use auto& if there is modification of x instead.
+// The const keyword will generate a compiler error if there is any attempt to modify x's value. 
+for(const auto& x: xs) {
+    std::cout << "word = '" << x << "' size = " << x.size() << "\n";
+}
+```
+
+> [!WARNING]
+>
+> If the iterator is a reference, changes on it will reflect on the original collection.
 
 ## Functions
 
@@ -316,6 +346,38 @@ Data structures are all available in namespace `std` (ex. `std::vector<Type>`, `
 > \
 > However, it is possible to reserve memory for a vector using its method `reserve` to prevent to resize it everytime, improving performance.  
 
+### Iterator
+
+```c++
+std::vector<std::string> xs {"Hello", "world", "C++", "HPC", "awesome"};
+
+for(std::vector<std::string>::iterator it = xs.begin(); it != xs.end(); ++it){
+     std::cout << "word = '" << *it << "' size = " << it->size() << "\n";
+}
+
+/** Output: 
+    word = 'Hello' size = 5
+    word = 'world' size = 5
+    word = 'C++' size = 3
+    word = 'HPC' size = 3
+    word = 'awesome' size = 7 
+ */
+
+// ===== OR ===== //
+
+for(auto it = xs.begin(); it != xs.end(); ++it){
+     std::cout << "word = '" << *it << "' size = " << it->size() << "\n";
+}
+
+/** Output: 
+    word = 'Hello' size = 5
+    word = 'world' size = 5
+    word = 'C++' size = 3
+    word = 'HPC' size = 3
+    word = 'awesome' size = 7
+*/
+```
+
 ## Stream
 
 Streams in C++ work with two operators:
@@ -331,22 +393,22 @@ For instance, we can want to make a function able to print on whatever output st
 #include <sstream>
 
 void printReport(std::ostream& os){
-  os << std::setprecision(3);
-  os << std::fixed;
-  os << std::boolalpha;
-  char nl = '\n';
-  os << "Report Data" << nl
-     << " x = " << 23.123 << nl
-     << " d = " << true   << nl
-     << " z = " << M_PI   << nl;
-  os.flush();
+    os << std::setprecision(3);
+    os << std::fixed;
+    os << std::boolalpha;
+    char nl = '\n';
+    os << "Report Data" << nl
+       << " x = " << 23.123 << nl
+       << " d = " << true   << nl
+       << " z = " << M_PI   << nl;
+    os.flush();
 }
 
 int main(void) {
-  printReport(std::cout);
-  printReport(std::cerr);
+    printReport(std::cout);
+    printReport(std::cerr);
 
-  return 0;
+    return 0;
 }
 ```
 
