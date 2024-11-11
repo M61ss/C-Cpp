@@ -9,11 +9,18 @@
     - [`static`](#static)
   - [Literals](#literals)
   - [String](#string)
+    - [Multiline strings](#multiline-strings)
+    - [Raw string literal](#raw-string-literal)
+    - [`std::string`](#stdstring)
+    - [`std::to_string` (since C++11)](#stdto_string-since-c11)
+    - [Comma separated value (CSV) parser](#comma-separated-value-csv-parser)
   - [`if-else`](#if-else)
-  - [I/O](#io)
+  - [Regular expression (RegEx)](#regular-expression-regex)
   - [Functions](#functions)
     - [Default parameters](#default-parameters)
     - [Function overloading](#function-overloading)
+  - [Stream](#stream)
+    - [I/O streams](#io-streams)
 
 # Gold mine
 
@@ -106,17 +113,17 @@ int main()
 - **Double** (since C++14): `15'55'100.91'25'41` or `1555'100.912541`;
 - **Character**: `'C'`;
 - **Non-printable character**: `'\x0F'` (exadecimal value!);
-- **String literal**: to treat string literals as `std::string` you can use this syntax:
+- **String literal** (since C++14): to treat string literals as `std::string` (see [String](#string)) you can use this syntax:
   
   ```c++
   // std::string concatenated = "string" + " contatenated";  ERROR: concatenation with `+` is supported only with `std::string`
   std::string concatenated = std::string("string") + " contatenated";   // Verbose
-  std::string concatenated = "string"s + " contatenated";   // Fast, equivalent to the previous
+  std::string concatenated = "string"s + " contatenated";   // Compact, equivalent to the previous
   ```
 
 ## String
 
-- **Multiline strings**: 
+### Multiline strings 
   
   ```c++
   const char* str1 =
@@ -127,13 +134,83 @@ int main()
         ;
   ```
 
-- **Raw string literal**: It supports multiline and characters that are used for escaping sequence such as backward slash (\\) that, in regular strings, needs to be escaped and written as (\\\\):
-  
-  ```c++
-  const char* windows_path = R"(C:\Uses\Dummy\Path)";
-  ```
+### Raw string literal
 
-- **`std::string`** defined in `<string>` ([C++ reference](http://www.cplusplus.com/reference/string/)). It is easier to manipulate strings with this since it is an object with useful methods.
+C++ supports raw string literal which can contain characters that are used for escaping sequence such as backward slash (\\) that, in regular strings, needs to be escaped and written as (\\\\). They can be multiline.
+  
+```c++
+const char* windows_path = R"(C:\Uses\Dummy\Path)";
+```
+
+### `std::string`
+
+`std::string` is defined in `<string>` ([C++ reference](http://www.cplusplus.com/reference/string/)). It make easier to manipulate strings since `std::string` is an object with useful methods;
+
+### `std::to_string` (since C++11) 
+
+`std::to_string` is the method to convert a value to a string. It returns a `std::string`. 
+
+### Comma separated value (CSV) parser
+
+> [!WARNING] CSV (comma separated value)
+>
+> The following CSV parser functions fails for heterogeneous data or when there are quotes characters. It is better to use a proper CSV parser library as CSV is not a standardized data exchange format and has lots of tricky edge cases.
+
+It is important to see an example of implementation of a CSV since it is very used and useful:
+
+```c++
+#include <iostream>
+#include <vector>
+#include <string>
+#include <sstream>
+
+std::vector<double> parseCSVRow(const std::string& line, char delim = ','){
+  auto out   = std::vector<double>{};
+  auto token = std::string{};
+  auto ss    = std::stringstream{line};
+  while(std::getline(ss, token, delim)){
+    out.push_back(std::stod(token));
+  }
+  return out;
+}
+
+int main(void) {
+  std::string raw_data = "100,   200,  400, -100.23, 60.23, 90.32";
+  parseCSVRow(raw_data);
+
+  return 0;
+}
+```
+
+Generic version (see [template]()):
+
+```c++
+#include <iostream>
+#include <vector>
+#include <string>
+#include <sstream>
+
+template<class Type = double>
+std::vector<Type> parseCSVRowGeneric(const std::string& line, char delim = ',') {
+  auto out   = std::vector<Type>{};
+  auto token = std::string{};
+  auto ss    = std::stringstream{line};
+  auto is    = std::stringstream{};
+  Type value{};
+
+  while(std::getline(ss, token, delim)){
+    // Clear error flags                                                                                                                              
+    is.clear();
+    // Set is stream value to token                                                                                                                   
+    is.str(token);
+    // Extract from 'is' stream                                                                                                                       
+    is >> value;
+    out.push_back(value);
+  }
+
+  return out;
+}
+```
 
 ## `if-else`
 
@@ -157,54 +234,11 @@ if (FILE* fp = fopen("/tmp/file4.dat", "w"); fp != nullptr) {
 }
 ```
 
-## I/O
+## Regular expression (RegEx)
 
-There are 4 I/O functions:
 
-- `std::cout`: prints output on `stdout`.
-- `std::cin`: reads input from `stdin`.
-- `std::clog`: prints output on `stderr`.
-- `std::cerr`: prints output on `stdoerr`.
 
-These functions work with two operators:
-
-- Insertion operator `<<`: it takes elements at its right and inserts them into the output function at its left.
-- Extraction operator `>>`: it takes the ouput of the input function at its left and puts it inside the container at its right.
-
-*Example*:
-
-```c++
-#include <iostream> 
-#include <string> 
-
-double x;
-std::cin >> x;
- 
-std::cout << "Enter x: "; std::cin >> x; std::cout << " => x = " << x << "\n";
-
-std::string user;
-std::cout << "Name: "; std::cin >> user; std::cout << " => user is = " << user;
-```
-
-To read multiple data from console:
-
-```c++
-#include <iostream> 
-#include <string> 
-
-int         id, quantity;
-double      price;
-std::string name;
-
-// Read from console 4 data separated by whitespaces
-std::cin >> id >> name >> quantity >> price;
-```
-
-Useful to easily read structured data. 
-
-> [!TIP] getline
-> 
-> To read an entire line (until `\n`) use `std::getline`.
+See also [Regular expression - C++ Reference](http://www.cplusplus.com/reference/regex/).
 
 ## Functions
 
@@ -264,3 +298,87 @@ void show(double x){
     std::cout << "Call Version2 with =>" << " x [double] = " << x << "\n";
 }
 ```
+
+## Stream
+
+Streams in C++ work with two operators:
+
+- Insertion operator `<<`: it takes elements at its right and inserts them into the output stream at its left.
+- Extraction operator `>>`: it takes the input from the input stream at its left and puts it inside the container at its right.
+
+For instance, we can want to make a function able to print on whatever output stream depending on our needs:
+
+```c++
+#include <iostream> 
+#include <iomanip>
+#include <sstream>
+
+void printReport(std::ostream& os){
+  os << std::setprecision(3);
+  os << std::fixed;
+  os << std::boolalpha;
+  char nl = '\n';
+  os << "Report Data" << nl
+     << " x = " << 23.123 << nl
+     << " d = " << true   << nl
+     << " z = " << M_PI   << nl;
+  os.flush();
+}
+
+int main(void) {
+  printReport(std::cout);
+  printReport(std::cerr);
+
+  return 0;
+}
+```
+
+The same mechanism works as well for input stream using `std::istream`.
+
+> [!WARNING] 
+>
+> C++ uses `<<`, insertion operator, also to change stream settings (ex. `os << std::setprecision(3)`). Contrarwise, Java uses dot notation to invoke stream methods. 
+
+### I/O streams
+
+There are 4 standard I/O stream:
+
+- `std::cout`: prints output on `stdout`.
+- `std::cin`: reads input from `stdin`.
+- `std::clog`: prints output on `stderr`.
+- `std::cerr`: prints output on `stdoerr`.
+
+*Example*:
+
+```c++
+#include <iostream> 
+#include <string> 
+
+double x;
+std::cin >> x;
+ 
+std::cout << "Enter x: "; std::cin >> x; std::cout << " => x = " << x << "\n";
+
+std::string user;
+std::cout << "Name: "; std::cin >> user; std::cout << " => user is = " << user;
+```
+
+To read multiple data from console:
+
+```c++
+#include <iostream> 
+#include <string> 
+
+int         id, quantity;
+double      price;
+std::string name;
+
+// Read from console 4 data separated by whitespaces
+std::cin >> id >> name >> quantity >> price;
+```
+
+Useful to easily read structured data. 
+
+> [!TIP] getline
+> 
+> To read an entire line (until `\n`) use `std::getline`.
