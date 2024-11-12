@@ -20,10 +20,13 @@
   - [Functions](#functions)
     - [Default parameters](#default-parameters)
     - [Function overloading](#function-overloading)
+  - [Scoped enums](#scoped-enums)
   - [Collections](#collections)
     - [Iterator](#iterator)
   - [Stream](#stream)
     - [I/O streams](#io-streams)
+  - [OOP](#oop)
+    - [Constructors](#constructors)
 
 # Gold mine
 
@@ -336,6 +339,28 @@ void show(double x){
 }
 ```
 
+## Scoped enums
+
+Scoped enumerations are a more type-safe alternative to the old C-enums as it has several problems realated to namespace conflicts and implicit conversions that can introduce bugs hard to catch and reason about. 
+
+*Example*:
+
+```c++
+enum class MachineStatus: std::uint32_t {
+    running = 0xf5,
+    iddle   = 0x2a,
+    waiting = 0x35,
+    failure = 0x24
+};
+
+int main(void) {
+  status = MachineStatus::iddle
+  std::cout << "Machine status = " << std::hex << "0x" << static_cast<std::uint32_t>(status) << std::endl;
+
+  return 0;
+}
+```
+
 ## Collections
 
 Data structures are all available in namespace `std` (ex. `std::vector<Type>`, `std::list<Type>`, etc.).
@@ -461,3 +486,41 @@ Useful to easily read structured data.
 > [!TIP] getline
 > 
 > To read an entire line (until `\n`) use `std::getline`.
+
+## OOP
+
+### Constructors
+
+```c++
+class TestClass {
+    // --- Member variables ---- // 
+    int        m_x;
+    char       m_ch;
+    std::string m_text;
+public:
+    // Constructor 1: Conversion constructor 
+    TestClass(int x) : m_x(x)
+    {
+        std::printf(" [LOG] Intialize m_x = %d\n", x);
+    }
+    // Constructor 2: Conversion constructor 
+    TestClass(char ch) : m_ch(ch)
+    {
+        std::printf(" [LOG] Intialize m_ch = %c\n", ch);
+    }
+    // Constructor 3: Not conversion constructor / explicit constructor 
+    explicit TestClass(const std::string& text) : m_text(text)
+    {
+        std::printf(" [LOG] Initialize m_text = %s\n", text.c_str());
+    }
+    // Constructor 4: 
+    TestClass(int x, char ch)
+    {
+        std::printf("[LOG] Intialize m_x = %d - m_ch = %c\n", x, ch);
+    }
+    
+    void show(){
+        std::printf("[LOG] TestClass{ m_x = %d ; m_ch = '%c' ; m_text = '%s' }\n" ,m_x, m_ch, m_text.c_str());
+    }
+};
+```
