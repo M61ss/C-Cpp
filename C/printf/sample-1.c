@@ -5,7 +5,8 @@ int main() {
     printf("%u\n", 32);                 // Unsigned int
     printf("%f\n", 42.42);              // Float
     printf("%lf\n", 42.42);             // Double
-    printf("%p\n", &a);                 // Pointer
+    int a = 1;                                  // Pointer
+    printf("%p\n", &a);                 
     printf("%c\n", 'a');                // Char
     printf("%s\n", "hello");            // String
     printf("%%\n");                     // %
