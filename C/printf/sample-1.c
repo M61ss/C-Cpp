@@ -1,8 +1,6 @@
 #include <stdio.h>
 
 int main() {
-    int a = 1;
-
     printf("%d\n", -32);                // Int
     printf("%u\n", 32);                 // Unsigned int
     printf("%f\n", 42.42);              // Float
