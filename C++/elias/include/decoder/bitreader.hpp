@@ -4,8 +4,11 @@
 #include <fstream>
 
 namespace bit_reader {
-    class BitReader {
+    class BigEndian {
     public:
+        uint8_t readBit();
+        size_t readSequence(const size_t& length);
+        void flush();
 
     private:
         std::istream& is_;
