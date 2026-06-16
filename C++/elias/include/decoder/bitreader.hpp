@@ -4,30 +4,32 @@
 #include <fstream>
 
 namespace bit_reader {
-    class BigEndian {
+    class Bitreader {
     public:
-        BigEndian(std::istream& is);
-        uint8_t readBit();
-        size_t readSequence(const size_t& length);
-        void flush();
+        Bitreader(std::istream& is);
+        virtual ~Bitreader() = default;
+        virtual uint8_t readBit() = 0;
+        virtual size_t readSequence(const size_t& length) = 0;
+        virtual void flush();
 
-    private:
+    protected:
         std::istream& is_;
         uint8_t buffer_;
         size_t n_;
     };
 
-    class LittleEndian {
+    class BigEndian : public Bitreader {
+    public:
+        BigEndian(std::istream& is);
+        uint8_t readBit() override;
+        size_t readSequence(const size_t& length) override;
+    };
+
+    class LittleEndian : public Bitreader {
     public:
         LittleEndian(std::istream& is);
-        uint8_t readBit();
-        size_t readSequence(const size_t& length);
-        void flush();
-
-    private:
-        std::istream& is_;
-        uint8_t buffer_;
-        size_t n_;
+        uint8_t readBit() override;
+        size_t readSequence(const size_t& length) override;
     };
 }
 

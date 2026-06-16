@@ -1,6 +1,13 @@
 #include "bitreader.hpp"
 
-bit_reader::BigEndian::BigEndian(std::istream& is) : is_(is), buffer_(0), n_(0) {}
+bit_reader::Bitreader::Bitreader(std::istream& is) : is_(is), buffer_(0), n_(0) {}
+
+void bit_reader::Bitreader::flush() {
+	buffer_ = 0;
+	n_ = 0;
+}
+
+bit_reader::BigEndian::BigEndian(std::istream& is) : bit_reader::Bitreader(is) {}
 
 uint8_t bit_reader::BigEndian::readBit() {
 	if (n_ == 0) {
@@ -19,12 +26,7 @@ size_t bit_reader::BigEndian::readSequence(const size_t& length) {
 	return val;
 }
 
-void bit_reader::BigEndian::flush() {
-	buffer_ = 0;
-	n_ = 0;
-}
-
-bit_reader::LittleEndian::LittleEndian(std::istream& is) : is_(is), buffer_(0), n_(0) {}
+bit_reader::LittleEndian::LittleEndian(std::istream& is) : bit_reader::Bitreader(is) {}
 
 uint8_t bit_reader::LittleEndian::readBit() {
 	if (n_ == 0) {
@@ -44,9 +46,4 @@ size_t bit_reader::LittleEndian::readSequence(const size_t& length) {
 		val |= bit << i;
 	}
 	return val;
-}
-
-void bit_reader::LittleEndian::flush() {
-	buffer_ = 0;
-	n_ = 0;
 }
