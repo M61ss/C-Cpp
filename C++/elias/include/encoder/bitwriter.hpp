@@ -9,7 +9,7 @@ namespace bit_writer {
 		BigEndian(std::ostream& os);
 		void writeBit(const uint8_t& bit);
 		void writeSequence(const size_t& val, const size_t& length);
-		void flush(const uint8_t& bit = 0);
+		void flush(const uint8_t& bit);
 
 	private:
 		std::ostream& os_;
