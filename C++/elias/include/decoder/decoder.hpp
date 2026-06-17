@@ -2,16 +2,19 @@
 #define ELIAS_DECODER_DECODER_H_
 
 #include <fstream>
+#include <vector>
 
 #include "bitreader.hpp"
 
 namespace elias_decoder {
 	class Decoder {
 	public:
-		Decoder(std::istream& is, bit_reader::Bitreader& br);
+		Decoder(bit_reader::Bitreader& br);
+		size_t decodeOne();
+		std::vector<size_t> decodeN(const size_t& n);
+		std::vector<size_t> decodeFile();
 
 	private:
-		std::istream& is_;
 		bit_reader::Bitreader& br_;
 	};
 }
