@@ -4,17 +4,26 @@
 #include <fstream>
 
 namespace bit_writer {
-	class BigEndian {
+	class BitWriter {
 	public:
-		BigEndian(std::ostream& os);
-		void writeBit(const uint8_t& bit);
-		void writeSequence(const size_t& val, const size_t& length);
-		void flush(const uint8_t& bit);
+		BitWriter(std::ostream& os);
+		virtual ~BitWriter() = default;
+		virtual void writeBit(const uint8_t& bit) = 0;
+		virtual void writeSequence(const size_t& val, const size_t& length) = 0;
+		virtual void flush(const uint8_t& bit) = 0;
 
-	private:
+	protected:
 		std::ostream& os_;
 		uint8_t buffer_;
 		size_t n_;
+	};
+
+	class BigEndian : public BitWriter {
+	public:
+		BigEndian(std::ostream& os);
+		void writeBit(const uint8_t& bit) override;
+		void writeSequence(const size_t& val, const size_t& length) override;
+		void flush(const uint8_t& bit) override;
 	};
 }
 

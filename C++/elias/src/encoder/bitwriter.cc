@@ -1,6 +1,8 @@
 #include "bitwriter.hpp"
 
-bit_writer::BigEndian::BigEndian(std::ostream& os) : os_(os), buffer_(0), n_(0) {}
+bit_writer::BitWriter::BitWriter(std::ostream& os) : os_(os), buffer_(0), n_(0) {}
+
+bit_writer::BigEndian::BigEndian(std::ostream& os) : bit_writer::BitWriter(os) {}
 
 void bit_writer::BigEndian::writeBit(const uint8_t& bit) {
 	buffer_ = (buffer_ << 1) | bit;
@@ -12,7 +14,7 @@ void bit_writer::BigEndian::writeBit(const uint8_t& bit) {
 }
 
 void bit_writer::BigEndian::writeSequence(const size_t& val, const size_t& length) {
-	for (int i = static_cast<int>(length) - 1; i >= 0; i++) {
+	for (int i = static_cast<int>(length) - 1; i >= 0; i--) {
 		writeBit((val >> i) & 1);
 	}
 }
